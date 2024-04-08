@@ -10,8 +10,8 @@ on:
   pull_request:
     branches:
       - dev
-    # paths:
-    #   - 'bicep/**' # Trigger on pull requests with changes in the captionhealth directory
+    paths:
+      - 'bicep/**' # Trigger on pull requests with changes in the captionhealth directory
 
 permissions:
   id-token: write
@@ -45,7 +45,7 @@ jobs:
       uses: azure/arm-deploy@v2
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ env.BuildRgName }}
+        scope: subscription
         template: ./bicep/deployRG.bicep
         deploymentMode: Complete
         failOnStdErr: false
