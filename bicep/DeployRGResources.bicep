@@ -1,9 +1,7 @@
-targetScope = 'resourceGroup'
-
 param storage object = {
   tfstate: {
     storageAccount: {
-      name: 'hhrgglobalterraformeastus'
+      name: 'hhrgglobaltftesteastus'
       location: 'eastus'
       sku: 'Standard_RAGRS'
       kind: 'StorageV2'
