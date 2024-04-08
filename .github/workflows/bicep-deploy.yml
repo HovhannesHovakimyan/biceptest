@@ -43,13 +43,13 @@ jobs:
 
       # Deploy Bicep file
     - name: deploy resource groups
-      uses: azure/arm-deploy@v2
+      uses: Azure/CLI@v1
       with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        scope: subscription
-        region: ${{ env.RegionForSubScopeDeployments }}
-        template: ./bicep/deployRG.bicep
-        failOnStdErr: false
+        inlineScript: |
+          #!/bin/bash
+          az group create --name ${{ env.BuildRgName }} --location ${{ env.RegionForSubScopeDeployments }}
+          az group create --name ${{ env.DeployRgName }} --location ${{ env.RegionForSubScopeDeployments }}
+          echo "Azure resource groups created"
 
       # Deploy Bicep file
     - name: deploy resources for Build RG
