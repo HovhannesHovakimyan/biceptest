@@ -41,11 +41,11 @@ resource storageContainer 'Microsoft.Storage/storageAccounts/blobServices/contai
 ]
 
 param acr object = {
-  backend: {
-    name: 'devglobalacruseastfrontend'
-    location: 'eastus'
-    sku: 'Basic'
-  }
+  // backend: {
+  //   name: 'devglobalacruseastfrontend'
+  //   location: 'eastus'
+  //   sku: 'Basic'
+  // }
 }
 
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' = [
