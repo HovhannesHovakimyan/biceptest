@@ -49,7 +49,6 @@ jobs:
         scope: subscription
         region: ${{ env.RegionForSubScopeDeployments }}
         template: ./bicep/deployRG.bicep
-        deploymentMode: Complete
         failOnStdErr: false
 
       # Deploy Bicep file
