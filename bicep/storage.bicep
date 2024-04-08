@@ -3,7 +3,7 @@ targetScope = 'resourceGroup'
 param storage object = {
   // tfstate: {
   //   storageAccount: {
-  //     name: 'chrgglobalxyzeastus'
+  //     name: 'hhrgglobalxyzeastus'
   //     location: 'eastus'
   //     sku: 'Standard_RAGRS'
   //     kind: 'StorageV2'
@@ -17,7 +17,7 @@ param storage object = {
   // }
   // tfstate2: {
   //   storageAccount: {
-  //     name: 'chrgglobalqweeastus'
+  //     name: 'hhrgglobalqweeastus'
   //     location: 'eastus'
   //     sku: 'Standard_RAGRS'
   //     kind: 'StorageV2'

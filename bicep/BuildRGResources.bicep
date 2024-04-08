@@ -3,7 +3,7 @@ targetScope = 'resourceGroup'
 param storage object = {
   frontend: {
     storageAccount: {
-      name: 'chrgglobalfrontendeastus'
+      name: 'hhrgglobalfrontendeastus'
       location: 'eastus'
       sku: 'Standard_RAGRS'
       kind: 'StorageV2'
