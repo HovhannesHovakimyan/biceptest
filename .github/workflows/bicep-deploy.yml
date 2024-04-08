@@ -5,13 +5,13 @@ on:
   push:
     branches:
       - dev
-    paths:
-      - 'bicep/**' # Trigger on pull requests with changes in the captionhealth directory
+    # paths:
+    #   - 'bicep/**' # Trigger on pull requests with changes in the captionhealth directory
   pull_request:
     branches:
       - dev
-    paths:
-      - 'bicep/**' # Trigger on pull requests with changes in the captionhealth directory
+    # paths:
+    #   - 'bicep/**' # Trigger on pull requests with changes in the captionhealth directory
 
 permissions:
   id-token: write
