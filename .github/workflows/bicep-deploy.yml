@@ -1,0 +1,69 @@
+---
+name: Azure ARM
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'bicep/**' # Trigger on pull requests with changes in the captionhealth directory
+  pull_request:
+    branches:
+      - dev
+    paths:
+      - 'bicep/**' # Trigger on pull requests with changes in the captionhealth directory
+
+permissions:
+  id-token: write
+  contents: read
+
+# These environment variables are used by the terraform azure provider to setup OIDD authenticate.
+env:
+  ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+  ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+  ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
+  BuildRgName: "global-rg-eastus-build"
+  DeployRgName: "global-rg-eastus-deploy"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout code
+    - uses: actions/checkout@main
+
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Deploy Bicep file
+    - name: deploy resource groups
+      uses: azure/arm-deploy@v2
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        template: ./bicep/deployRG.bicep
+        deploymentMode: Complete
+        failOnStdErr: false
+
+      # Deploy Bicep file
+    - name: deploy resources for Build RG
+      uses: azure/arm-deploy@v2
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        resourceGroupName: ${{ env.BuildRgName }}
+        template: ./bicep/BuildRGResources.bicep
+        failOnStdErr: false
+
+      # Deploy Bicep file
+    - name: deploy resources for Deploy RG
+      uses: azure/arm-deploy@v2
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        resourceGroupName: ${{ env.DeployRgName }}
+        template: ./bicep/DeployRGResources.bicep
+        deploymentMode: Complete
+        failOnStdErr: false
